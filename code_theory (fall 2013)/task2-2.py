@@ -34,7 +34,8 @@ while j < len(n):
    result.append(summ)    
    j += 1
    
-print (result)
+f1=open('./testfile.txt', 'w+')
+print (result, f1)
 
 xlist = mlab.frange (2, 24, 2)
 ylist = result
