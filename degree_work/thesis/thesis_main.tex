@@ -1,0 +1,61 @@
+\documentclass[a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[section]{algorithm}
+\usepackage{algorithmic}
+\usepackage[english,russian]{babel}
+\usepackage{csquotes}
+\usepackage[pdftex]{graphicx}
+\usepackage{sty/dbl12}
+\usepackage{sty/rac}
+\graphicspath{{res/}}
+
+\usepackage[
+backend=biber,
+bibencoding=utf8,
+sorting=none,
+sortcites=true,
+bibstyle=sty/gost71,
+maxnames=99,
+citestyle=numeric-comp,
+%babel=other
+autolang=hyphen]{biblatex}
+\defbibenvironment{bibliography}
+  {\list
+    {\printfield[labelnumberwidth]{labelnumber}.}
+    {\setlength{\labelwidth}{2\labelnumberwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+
+
+\addbibresource{main.bib}
+
+\setlength{\oddsidemargin}{0.5in}
+
+\begin{document}
+
+
+\input{title.tex}
+
+
+\newpage
+\setcounter{page}{3}
+\pagestyle{plain}
+\tableofcontents
+
+\input{intro.tex}
+\input{chapter1.tex}
+\input{chapter2.tex}
+\input{chapter3.tex}
+\input{outro.tex}
+
+\printbibliography
+
+\end{document}
