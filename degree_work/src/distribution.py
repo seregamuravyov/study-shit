@@ -4,8 +4,8 @@ import znorm
 import numpy as np
 
 # paths to input files
-gc_stat_file = "depth-stat"
-depth_stat_file = "gc-stat"
+gc_stat_file = "gc-stats"
+depth_stat_file = "depth-stats"
 # paths to output files
 distr_file = "res.my100.depth.wig"
 
@@ -61,8 +61,8 @@ def computeNormaliziedDepthGCParameters(depthNormalizer, depthNormalizerCount, n
 
 
 def main():
-    gcstat = open(gc_stat_file, 'w')
-    depthstat = open(depth_stat_file, 'w')
+    gcstat = open(gc_stat_file, "r")
+    depthstat = open(depth_stat_file, "r")
 
     dp_lines = depthstat.readlines()
     gc_lines = gcstat.readlines()
@@ -70,10 +70,16 @@ def main():
     # parse data and initialize variables
     for i, x in enumerate(dp_lines):
         if(x[0] == '>'):
-            name = x[1:]
-            full_depth[name] = map(int, dp_lines[i + 1][:-1].split(' '))
-            full_gc[name] = map(int, gc_lines[i + 1][:-1].split(' '))
-            full_ans[name] = len(full_gc[name])
+            name = x[1:-1]
+            ln = len(dp_lines[i + 1][:-2].split(' '))
+            full_ans[name] = np.zeros(ln)
+            full_depth[name] = np.zeros(ln)
+            full_gc[name] = np.zeros(ln)
+            for k, j in enumerate(dp_lines[i + 1][:-2].split(' ')):
+                full_depth[name][k] = int(j)
+
+            for k, j in enumerate(gc_lines[i + 1][:-2].split(' ')):
+                full_gc[name][k] = int(j)
         else:
             continue
 
@@ -107,13 +113,11 @@ def main():
     for k, v in full_depth.items():
         depth_cur = v
         gc_cur = full_gc[k]
-        for i, x in enumerate(depth_cur):
-            if (np.sum(depth_cur) != 0):
+        if (np.sum(depth_cur) != 0):
+            for i, x in enumerate(depth_cur):
                 d = x
                 g = gc_cur[i]
-                for j in range(0, 101):
-                    if (g == j):
-                        depth_pos[j, d] += 1
+                depth_pos[g, d] += 1
 
     # count log-likelihood and z-norm, write distribution table to file (optional)
     pl_emp = open('pl1.txt', 'w')
@@ -137,8 +141,6 @@ def main():
             full_ans[k][i] = depth_pos[g[i], d[i]]
             final_stat.write(str(full_ans[k][i]) + '\n')
     final_stat.close()
-
-
 
 if __name__ == '__main__':
     main()

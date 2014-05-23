@@ -7,8 +7,8 @@ import numpy as np
 assembly_path = "/home/sergey/GAGE/ecoli/Ecoli_first350k1.fna"
 sam_file_path = "Ecoli_first350k.map.sam"
 # paths to output files
-gc_stat_file = "depth-stat"
-depth_stat_file = "gc-stat"
+gc_stat_file = "gc-stat"
+depth_stat_file = "depth-stats"
 
 # dictionaries/maps for gc-stat and depth-stat
 full_depth = {}
@@ -29,7 +29,7 @@ def get_data():
             ll = len(lines[i + 1])
             full_depth[name] = np.zeros(ll)
             full_gc[name] = np.zeros(ll)
-            full_gc[name] = get_gc(lines[i+1])
+            # full_gc[name] = get_gc(lines[i+1])
         else:
             continue
     ass.close()
@@ -130,24 +130,24 @@ def calculateContigGCcont(contig, windowSize):
 def main():
     get_data()
 
-    gcstat = open(gc_stat_file, 'w')
+    # gcstat = open(gc_stat_file, 'w')
     depthstat = open(depth_stat_file, 'w')
 
     for k, v in sorted(full_depth.items()):
         depthstat.write(">" + k + '\n')
-        gcstat.write(">" + k + '\n')
+        # gcstat.write(">" + k + '\n')
 
         depth_cur = v
         gc_cur = full_gc[k]
 
         for i, x in enumerate(v):
-            gcstat.write(str(int(gc_cur[i])) + ' ')
+            # gcstat.write(str(int(gc_cur[i])) + ' ')
             depthstat.write(str(int(depth_cur[i])) + ' ')
 
         depthstat.write('\n')
-        gcstat.write('\n')
+        # gcstat.write('\n')
 
-    gcstat.close()
+    # gcstat.close()
     depthstat.close()
 
 if __name__ == '__main__':
