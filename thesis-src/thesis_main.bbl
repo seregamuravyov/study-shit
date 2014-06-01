@@ -1,0 +1,42 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 1.7 $
+% $ biber version 0.9.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber or bibtex as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \entry{scala_lang}{online}{}
+    \field{sortinit}{0}
+    \field{hyphenation}{english}
+    \field{title}{{Scala language}}
+    \verb{url}
+    \verb http://www.scala-lang.org/
+    \endverb
+  \endentry
+
+  \entry{hueta}{online}{}
+    \field{sortinit}{0}
+    \field{hyphenation}{english}
+    \field{title}{{hueta language}}
+    \verb{url}
+    \verb http://www.scala-lang.org/
+    \endverb
+  \endentry
+
+\endrefsection
+\endinput
+
